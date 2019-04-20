@@ -1,0 +1,89 @@
+<pre><font color="#8AE234"><b>vikram@vikram-Inspiron-7370</b></font>:<font color="#729FCF"><b>~/Dropbox/New-Inspiron-Ubuntu/Other/tornado-learning/ch1</b></font>$ mongo
+MongoDB shell version v4.0.9
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session { &quot;id&quot; : UUID(&quot;346b93da-af20-4ccb-a10f-dda45adaa6ff&quot;) }
+MongoDB server version: 4.0.9
+Welcome to the MongoDB shell.
+For interactive help, type &quot;help&quot;.
+For more comprehensive documentation, see
+	http://docs.mongodb.org/
+Questions? Try the support group
+	http://groups.google.com/group/mongodb-user
+Server has startup warnings: 
+2019-04-19T21:30:34.395+0530 I STORAGE  [initandlisten] 
+2019-04-19T21:30:34.395+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-04-19T21:30:34.395+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-04-19T21:30:35.244+0530 I CONTROL  [initandlisten] 
+2019-04-19T21:30:35.244+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-04-19T21:30:35.244+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-04-19T21:30:35.244+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB&apos;s free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+&gt; db.collection.find()
+&gt; db.test_collection.find()
+&gt; db.test_collection.find_one()
+2019-04-19T21:56:33.819+0530 E QUERY    [js] TypeError: db.test_collection.find_one is not a function :
+@(shell):1:1
+&gt; cursor = db..test_collection.find()
+2019-04-19T21:57:09.875+0530 E QUERY    [js] SyntaxError: missing name after . operator @(shell):1:12
+&gt; cursor = db.test_collection.find()
+&gt; cursor
+&gt; cursor = db.test_collection.findOne()
+null
+&gt; db.test_collection.findOne()
+null
+&gt; db.test_collection
+test.test_collection
+&gt; test_db.test_collection.findOne()
+2019-04-19T22:00:17.957+0530 E QUERY    [js] ReferenceError: test_db is not defined :
+@(shell):1:1
+&gt; db.adminCommand( { listDatabases: 1 } )
+{
+	&quot;databases&quot; : [
+		{
+			&quot;name&quot; : &quot;admin&quot;,
+			&quot;sizeOnDisk&quot; : 32768,
+			&quot;empty&quot; : false
+		},
+		{
+			&quot;name&quot; : &quot;config&quot;,
+			&quot;sizeOnDisk&quot; : 90112,
+			&quot;empty&quot; : false
+		},
+		{
+			&quot;name&quot; : &quot;local&quot;,
+			&quot;sizeOnDisk&quot; : 32768,
+			&quot;empty&quot; : false
+		},
+		{
+			&quot;name&quot; : &quot;test_database&quot;,
+			&quot;sizeOnDisk&quot; : 32768,
+			&quot;empty&quot; : false
+		}
+	],
+	&quot;totalSize&quot; : 188416,
+	&quot;ok&quot; : 1
+}
+&gt; test_database.test_collection.findOne()
+2019-04-19T22:01:51.508+0530 E QUERY    [js] ReferenceError: test_database is not defined :
+@(shell):1:1
+&gt; db.getCollectionNames() 
+[ ]
+&gt; use test_database;
+switched to db test_database
+&gt; show collections;
+test_collection
+&gt; db.test_collection.find()
+{ &quot;_id&quot; : ObjectId(&quot;5cb9f4831a28f0507edc6b69&quot;), &quot;my_key&quot; : &quot;my_val&quot; }
+&gt; 
+</pre>

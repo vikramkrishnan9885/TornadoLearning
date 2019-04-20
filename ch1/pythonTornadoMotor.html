@@ -1,0 +1,93 @@
+<pre><font color="#8AE234"><b>vikram@vikram-Inspiron-7370</b></font>:<font color="#729FCF"><b>~/Dropbox/New-Inspiron-Ubuntu/Other/tornado-learning/ch1</b></font>$ python
+Python 3.6.5 |Anaconda, Inc.| (default, Apr 29 2018, 16:14:56) 
+[GCC 7.2.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import motor
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ModuleNotFoundError: No module named &apos;motor&apos;
+&gt;&gt;&gt; exit()
+<font color="#8AE234"><b>vikram@vikram-Inspiron-7370</b></font>:~/Dropbox/New-Inspiron-Ubuntu/Other/tornado-learning<font color="#729FCF"><b>/ch1</b></font>$ sudo pip3 install tornado motor
+[sudo] password for vikram: 
+<font color="#C4A000">The directory &apos;/home/vikram/.cache/pip/http&apos; or its parent directory is not owned by the current user and the cache has been disabled. Please check the permissions and owner of that directory. If executing pip with sudo, you may want sudo&apos;s -H flag.</font>
+<font color="#C4A000">The directory &apos;/home/vikram/.cache/pip&apos; or its parent directory is not owned by the current user and caching wheels has been disabled. check the permissions and owner of that directory. If executing pip with sudo, you may want sudo&apos;s -H flag.</font>
+Requirement already satisfied: tornado in /usr/local/lib/python3.6/dist-packages
+Collecting motor
+  Downloading https://files.pythonhosted.org/packages/28/ca/a2e740ad2822cbf0d2ac4a3b2b48e043142014ab5c8c2129fa5c71c8cdb5/motor-2.0.0-py2.py3-none-any.whl (45kB)
+    100% |████████████████████████████████| 51kB 100kB/s 
+Collecting pymongo&lt;4,&gt;=3.6 (from motor)
+  Downloading https://files.pythonhosted.org/packages/b1/45/5440555b901a8416196fbf2499c4678ef74de8080c007104107a8cfdda20/pymongo-3.7.2-cp36-cp36m-manylinux1_x86_64.whl (408kB)
+    100% |████████████████████████████████| 409kB 50kB/s 
+Installing collected packages: pymongo, motor
+Successfully installed motor-2.0.0 pymongo-3.7.2
+<font color="#8AE234"><b>vikram@vikram-Inspiron-7370</b></font>:~/Dropbox/New-Inspiron-Ubuntu/Other/tornado-learning<font color="#729FCF"><b>/ch1</b></font>$ pip3 install tornado motor
+Requirement already satisfied: tornado in /home/vikram/anaconda3/lib/python3.6/site-packages (5.0.2)
+Collecting motor
+  Downloading https://files.pythonhosted.org/packages/28/ca/a2e740ad2822cbf0d2ac4a3b2b48e043142014ab5c8c2129fa5c71c8cdb5/motor-2.0.0-py2.py3-none-any.whl (45kB)
+    100% |████████████████████████████████| 51kB 64kB/s 
+Collecting pymongo&lt;4,&gt;=3.6 (from motor)
+  Downloading https://files.pythonhosted.org/packages/b1/45/5440555b901a8416196fbf2499c4678ef74de8080c007104107a8cfdda20/pymongo-3.7.2-cp36-cp36m-manylinux1_x86_64.whl (408kB)
+    100% |████████████████████████████████| 409kB 84kB/s 
+Installing collected packages: pymongo, motor
+Successfully installed motor-2.0.0 pymongo-3.7.2
+<font color="#8AE234"><b>vikram@vikram-Inspiron-7370</b></font>:<font color="#729FCF"><b>~/Dropbox/New-Inspiron-Ubuntu/Other/tornado-learning/ch1</b></font>$ python
+Python 3.6.5 |Anaconda, Inc.| (default, Apr 29 2018, 16:14:56) 
+[GCC 7.2.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import motor
+&gt;&gt;&gt; import motor.motor_tornado
+&gt;&gt;&gt; lient = motor.motor_tornado.MotorClient()
+&gt;&gt;&gt; client = motor.motor_tornado.MotorClient()
+&gt;&gt;&gt; db = client.test_database
+&gt;&gt;&gt; collection = db.test_collection
+&gt;&gt;&gt; async def do_insert():
+...     document = {&quot;my_key&quot;:&quot;my_val&quot;}
+...     result = await collection.insert_one(document)
+...     print(&quot;result %s&quot;, %repr(result.inserted_id))
+  File &quot;&lt;stdin&gt;&quot;, line 4
+    print(&quot;result %s&quot;, %repr(result.inserted_id))
+                       ^
+SyntaxError: invalid syntax
+&gt;&gt;&gt; async def do_insert():
+...     document = {&quot;my_key&quot;:&quot;my_val&quot;}
+...     result = await collection.insert_one(document)
+...     print(&quot;result %s&quot; %repr(result.inserted_id))
+... 
+&gt;&gt;&gt; IOLoop.current().run_sync(do_insert)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+NameError: name &apos;IOLoop&apos; is not defined
+&gt;&gt;&gt; import tornado.ioloop.IOLoop
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ModuleNotFoundError: No module named &apos;tornado.ioloop.IOLoop&apos;; &apos;tornado.ioloop&apos; is not a package
+&gt;&gt;&gt; import tornado.ioloop
+&gt;&gt;&gt; from tornado.ioloop import IOLoop
+&gt;&gt;&gt; IOLoop.current().run_sync(do_insert)
+result ObjectId(&apos;5cb9f4831a28f0507edc6b69&apos;)
+&gt;&gt;&gt; async def do_find_one():
+...     document = await.db.test_collection.find_one({&apos;i&apos;: {&apos;$lt&apos;: 1}})
+  File &quot;&lt;stdin&gt;&quot;, line 2
+    document = await.db.test_collection.find_one({&apos;i&apos;: {&apos;$lt&apos;: 1}})
+                    ^
+SyntaxError: invalid syntax
+&gt;&gt;&gt; async def do_find_one():
+...     document = await db.test_collection.find_one({&apos;i&apos;: {&apos;$lt&apos;: 1}})
+...     pprint.pprint(document)
+... 
+&gt;&gt;&gt; IOLoop.current().run_sync(do_find_one)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/home/vikram/anaconda3/lib/python3.6/site-packages/tornado/ioloop.py&quot;, line 581, in run_sync
+    return future_cell[0].result()
+  File &quot;&lt;stdin&gt;&quot;, line 3, in do_find_one
+NameError: name &apos;pprint&apos; is not defined
+&gt;&gt;&gt; import pprint
+&gt;&gt;&gt; async def do_find_one():
+...     document = await db.test_collection.find_one()
+...     pprint.pprint(document)
+... 
+&gt;&gt;&gt; IOLoop.current().run_sync(do_find_one)
+{&apos;_id&apos;: ObjectId(&apos;5cb9f4831a28f0507edc6b69&apos;), &apos;my_key&apos;: &apos;my_val&apos;}
+&gt;&gt;&gt; 
+</pre>
